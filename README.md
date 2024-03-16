@@ -3,6 +3,7 @@
 ## [ApexVIP_OLD](https://github.com/hooksteroid/ApexD3D_VIP)
 
 #### 👾 - Aimbot Used Sonydriverlib
+#### 👾 - SPOOF_FUNC
 #### 👾 - Driver Used Pasted IOCTL
 #### 🆘 - Problem with D2DOverlay.lib -> [D2DOverlay Source](https://github.com/coltonon/D2DOverlay)
 #### 🆘 - How to use drv.sys -> [KDMAPPER](https://github.com/TheCruZ/kdmapper) / [KDU](https://github.com/hfiref0x/KDU) / [UCMapper](https://github.com/MmMapIoSpace/UCMapper) / [GhostMapper](https://github.com/Oliver-1-1/GhostMapper) / [Xigmapper EFI](https://github.com/xtremegamer1/xigmapper)
