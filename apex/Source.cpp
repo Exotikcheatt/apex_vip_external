@@ -1,8 +1,9 @@
-#include "Menu.h"
+﻿#include "Menu.h"
 #include "Settings.h"
 #include "SDK.h"
 #include "safe/xor.hpp"
 #include "safe/spoofcalls.h"
+#include "safe/spoof_call.h"
 
 
 inline HWND hwnd = NULL;
@@ -285,10 +286,10 @@ DWORD64 GetEntityById(int Ent, DWORD64 Base)
 {
 	SPOOF_FUNC;
 	DWORD64 EntityList = Base + m_cl_entitylist; //updated
-	DWORD64 BaseEntity = read<DWORD64>(EntityList);
+	DWORD64 BaseEntity = Read<DWORD64>(EntityList);
 	if (!BaseEntity)
 		return NULL;
-	return  read<DWORD64>(EntityList + (Ent << 5));
+	return  Read<DWORD64>(EntityList + (Ent << 5));
 }
 
 
@@ -299,23 +300,23 @@ void setupPlayers()
 	std::vector<DWORD_PTR> Players = std::vector<DWORD_PTR>();
 	while (true)
 	{
-		DWORD_PTR  ViewRender = read<DWORD_PTR>(base + m_view_render);
-		DWORD_PTR View_matrix = read<DWORD_PTR>(ViewRender + m_view_matrix);
-		vMatrix = read<D3DMATRIX>(View_matrix);
-		MyLocalplayer = read<DWORD_PTR>(base + m_LocalPlayer);
-		D3DXVECTOR3 Localorigin = read<D3DXVECTOR3>(MyLocalplayer + m_entity_origin);
+		DWORD_PTR  ViewRender = Read<DWORD_PTR>(base + m_view_render);
+		DWORD_PTR View_matrix = Read<DWORD_PTR>(ViewRender + m_view_matrix);
+		vMatrix = Read<D3DMATRIX>(View_matrix);
+		MyLocalplayer = Read<DWORD_PTR>(base + m_LocalPlayer);
+		D3DXVECTOR3 Localorigin = Read<D3DXVECTOR3>(MyLocalplayer + m_entity_origin);
 
 		for (size_t i = 0; i < 64; i++)
 		{
 			DWORD64 Entity = GetEntityById(i, base);
 			if (Entity == 0)
 				continue;
-			DWORD64 EntityHandle = read<DWORD64>(Entity + OFFSET_NAME);
-			std::string Identifier = read<std::string>(EntityHandle);
+			DWORD64 EntityHandle = Read<DWORD64>(Entity + OFFSET_NAME);
+			std::string Identifier = Read<std::string>(EntityHandle);
 			LPCSTR IdentifierC = Identifier.c_str();
 			if (strcmp(IdentifierC, "player"))
 			{
-				D3DXVECTOR3 origin = read<D3DXVECTOR3>(Entity + m_entity_origin);
+				D3DXVECTOR3 origin = Read<D3DXVECTOR3>(Entity + m_entity_origin);
 				if (origin.x == NULL)
 					continue;
 				dis = Distance(Localorigin, origin);
@@ -332,26 +333,28 @@ void setupPlayers()
 
 void OverlaySetup()
 {
+	SPOOF_FUNC;
 	DirectOverlaySetup(drawLoop,FindWindow(NULL,"Apex Legends"));
 }
 int main()
 {
 	SPOOF_FUNC;
-	std::cout << "Modified By _exotikcheat_" << std::endl;
 
-	InitItemName();
-	ReadSettings();
+	if (mem::find_driver() == false)
+	{
+		std::cout << "Driver Not Loaded";
+		Sleep(10000);
+		exit(1);
+	}
 
 	system("CLS");
 	std::cout << XorStr("\n[~] Initializing... ");
 
 	Sleep(1000);
 
-	mouse_interface();
-
-	SonyDriverHelper::api::Init();
-
 	printf(XorStr("\n[~] Waiting For r5apex.exe").c_str());
+
+	mouse_interface();
 
 	while (!hwnd)
 	{
@@ -359,19 +362,24 @@ int main()
 		Sleep(500);
 	}
 
-	system("cls");
-
-	mem::find_driver();
 	oPID = mem::find_process("r5apex.exe");
-	base = mem::find_image();
-
-	if (!base) {
-		printf(XorStr("\n[~] Could not get base address.").c_str());
-		system(("pause"));
-		return 1;
+	if (oPID == 0)
+	{
+		std::cout << "get Apex process fail\n";
 	}
 
+	base = mem::find_image();
+	if (base == NULL)
+	{
+		std::cout << "get Apex adress fail\n";
+	}
+
+	SonyDriverHelper::api::Init();
+
 	std::cout << (XorStr("Base Address = ").c_str()) << (void*)base << std::endl;
+
+	InitItemName();
+	ReadSettings();
 
 	std::thread(setupPlayers).detach();
 	std::thread(OverlaySetup).detach();
