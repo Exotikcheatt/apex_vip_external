@@ -1,0 +1,11 @@
+﻿  Render.cpp
+  fish.cpp
+  Source.cpp
+  Génération de code en cours...
+  Génération de code en cours
+  Previous IPDB not found, fall back to full compilation.
+  All 283 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Fin de la génération du code
+D2DOverlay.lib(Source.obj) : warning LNK4099: PDB 'D2DOverlay.pdb' n'a pu être trouvé avec 'D2DOverlay.lib(Source.obj)' ou sur 'C:\Users\maxime\Desktop\test\x64\Release\D2DOverlay.pdb' ; l'objet sera lié sans informations de débogage
+SonyDriverHelper.lib(StaticLib1.obj) : warning LNK4099: PDB 'StaticLib1.pdb' n'a pu être trouvé avec 'SonyDriverHelper.lib(StaticLib1.obj)' ou sur 'C:\Users\maxime\Desktop\test\x64\Release\StaticLib1.pdb' ; l'objet sera lié sans informations de débogage
+  apex.vcxproj -> C:\Users\maxime\Desktop\test\x64\Release\apex.exe
