@@ -347,11 +347,6 @@ int main()
 		exit(1);
 	}
 
-	system("CLS");
-	std::cout << XorStr("\n[~] Initializing... ");
-
-	Sleep(1000);
-
 	printf(XorStr("\n[~] Waiting For r5apex.exe").c_str());
 
 	mouse_interface();
@@ -361,6 +356,8 @@ int main()
 		hwnd = FindWindowA_Spoofed(0, XorStr("Apex Legends").c_str());
 		Sleep(500);
 	}
+
+	system("cls");
 
 	oPID = mem::find_process("r5apex.exe");
 	if (oPID == 0)
