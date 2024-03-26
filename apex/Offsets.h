@@ -3,21 +3,21 @@
 #define NUM_ENT_ENTRIES			(1 << 12)
 #define ENT_ENTRY_MASK			(NUM_ENT_ENTRIES - 1)
 
-#define m_view_render 0x73e0ad8
+#define m_view_render 0x73f1578
 #define m_view_matrix 0x11a350
 
-#define m_LocalPlayer 0x2166fa8  
-#define m_cl_entitylist 0x1db8548
+#define m_LocalPlayer 0x2182bf8  
+#define m_cl_entitylist 0x1dd40f8
 
 #define m_entity_origin 0x017c 
 #define m_entity_team_num 0x0328 //m_iTeamNum
-#define m_entity_bones 0x0d80 + 0x48
+#define m_entity_bones 0x0da0 + 0x48
 #define m_player_shields 0x01a0
-#define m_player_health 0x0318
-#define m_player_max_health 0x0460
+#define m_player_health 0x0318 //m_iHealth
+#define m_player_max_health 0x0460 //m_iMaxHealth
 #define m_shieldHealth 0x01a0 
 #define m_shieldHealthMax 0x01a4
-#define m_player_bleedout_state 0x26c0
+#define m_player_bleedout_state 0x26e0 //m_bleedoutState
 #define OFFSET_NAME	0x0471                 //m_iName
 
 enum BoneId {
